@@ -1,8 +1,5 @@
 extends KinematicBody2D
 
-enum State { STOP, MOVE }
-
-var state = State.MOVE
 
 var velocity = Vector2.ZERO
 var move_speed = 480
@@ -11,6 +8,7 @@ var jump_force = -820
 var is_grounded
 
 onready var raycasts = $raycasts
+
 
 
 func _physics_process(delta: float)-> void:
@@ -23,8 +21,7 @@ func _physics_process(delta: float)-> void:
 	
 	is_grounded = _check_is_ground()
 	
-#	_set_animation()
-	
+	_set_animation()
 
 func _get_input():
 	velocity.x = 0
@@ -33,38 +30,37 @@ func _get_input():
 	
 	if move_direction !=0:
 		$texture.scale.x = move_direction
+
 		
-	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump") && is_grounded:
 		velocity.y = jump_force / 2
-	
-			
+		
 func _check_is_ground():
 	for raycast in raycasts.get_children():
 		if raycast.is_colliding():
 			return true
 	
 	return false
-				
-#func _set_animation():
-#	var anim = "idle"
-#
-#	if !is_grounded:
-#		anim = "jump"
-#	elif velocity.x != 0:
-#		anim = "run"
-#	if velocity.y !=0:
-#		anim = "fall"
-#
-#	if $anim.assigned_animation != anim:
-#	  $anim.play(anim)
 	
+			
+func _set_animation():
+	var anim = "idle"
 	
+	if !is_grounded:
+		anim = "jump"
+	elif velocity.x != 0:
+		anim = "run"
+	if velocity.y !=0:
+		anim = "fall"
+		
+	if $anim.assigned_animation != anim:
+	  $anim.play(anim)
+
+
 func play_walk_in_animation():
-	state = State.STOP
-	$anim.play("Door_in")
-	
+	velocity.x = 0
+	$anim.play("Door_in")	
 
 	
 
