@@ -1,6 +1,6 @@
 extends Area2D
 
-export(PackedScene) var target_scene
+export(String, FILE, "*.tscn,*.scn") var target_scene
 
 func _ready():
 	pass
@@ -12,15 +12,14 @@ func _input(event):
 			return
 		if 	get_overlapping_bodies().size() > 0:
 			$anim.play("opening")
-			get_overlapping_bodies()[0].play_walk_in_animation()
+#			get_overlapping_bodies()[0].play_walk_in_animation()
 			
 func next_level():
-	var ERR = get_tree().change_scene_to(target_scene)
+	var ERR = get_tree().change_scene(target_scene)
 	
 	if ERR != OK:
 		print("falha ao abrir porta da cena!")
+		
+#========Dica Portas
 
-
-
-
-	
+	Global.door_name = name

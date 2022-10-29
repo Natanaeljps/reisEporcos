@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-
 var velocity = Vector2.ZERO
 var move_speed = 480
 var gravity = 1200
@@ -8,7 +7,6 @@ var jump_force = -820
 var is_grounded
 
 onready var raycasts = $raycasts
-
 
 
 func _physics_process(delta: float)-> void:
@@ -31,7 +29,7 @@ func _get_input():
 	if move_direction !=0:
 		$texture.scale.x = move_direction
 
-		
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump") && is_grounded:
 		velocity.y = jump_force / 2
@@ -43,7 +41,7 @@ func _check_is_ground():
 	
 	return false
 	
-			
+
 func _set_animation():
 	var anim = "idle"
 	
@@ -53,17 +51,11 @@ func _set_animation():
 		anim = "run"
 	if velocity.y !=0:
 		anim = "fall"
-		
+	
 	if $anim.assigned_animation != anim:
 	  $anim.play(anim)
 
 
 func play_walk_in_animation():
 	velocity.x = 0
-	$anim.play("Door_in")	
-
-	
-
-
-
-		
+	$anim.play("Door_in")
