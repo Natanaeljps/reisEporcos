@@ -1,16 +1,33 @@
-extends Node
+class_name CharacterBase extends KinematicBody2D
 
+enum StateMachine {IDLE, RUN, JUMP, FALL, ATK}
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export var speed := 100
+export var jump_force:= 150
+export var gravity:= 9.8
 
+var state = StateMachine.IDLE
+var motion := Vector2()
+var animation := ""
+var direction := 0
+var enter_state := true
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+onready var sprite : Sprite = get_node("Sprite")
+onready var animator : AnimationPlayer = get_node("AnimationPlayer")
 
+func _process(delta):
+	direction = Input.get_axis("move_right", "move_left")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _physics_process(delta):
+	motion = move_and_slide(motion, Vector2.UP)
+
+func _move_and_slide(delta):
+	motion.x = direction * speed
+
+func _apply_gravity(delta):
+	motion.y += gravity * delta
+
+func _set_animaton(anim):
+	if animation != anim:
+		animation = anim
+		animator.play(animation)
