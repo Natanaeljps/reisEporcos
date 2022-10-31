@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed = 64
+export var speed = 32
 export var health = 1
 var velocity = Vector2.ZERO
 var gravity = 1200
@@ -24,7 +24,7 @@ func _physics_process(delta):
 		$raycast.scale.x *= -1
 		yield (get_tree().create_timer(1.5), "timeout")
 		$anim.play("run")
-		move_direction *= -1	
+		move_direction *= -1
 
 	velocity = move_and_slide(velocity)
 	

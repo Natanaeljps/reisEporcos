@@ -23,3 +23,8 @@ func next_level():
 #========Dica Portas
 
 	Global.door_name = name
+	
+	
+
+
+
