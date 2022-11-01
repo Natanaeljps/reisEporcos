@@ -12,7 +12,7 @@ func _input(event):
 			return
 		if 	get_overlapping_bodies().size() > 0:
 			$anim.play("opening")
-#			get_overlapping_bodies()[0].play_walk_in_animation()
+			get_overlapping_bodies()[0].play_walk_in_animation()
 			
 func next_level():
 	var ERR = get_tree().change_scene(target_scene)
